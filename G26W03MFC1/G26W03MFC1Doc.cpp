@@ -1,5 +1,5 @@
 ﻿
-// G26W03MFC1Doc.cpp: CG26W03MFC1Doc 클래스의 구현
+// G26W03MFCDoc.cpp: CG26W03MFCDoc 클래스의 구현
 //
 
 #include "pch.h"
@@ -18,7 +18,7 @@
 #define new DEBUG_NEW
 #endif
 
-// CG26W03MFC1Doc
+// CG26W03MFCDoc
 
 IMPLEMENT_DYNCREATE(CG26W03MFC1Doc, CDocument)
 
@@ -26,7 +26,7 @@ BEGIN_MESSAGE_MAP(CG26W03MFC1Doc, CDocument)
 END_MESSAGE_MAP()
 
 
-// CG26W03MFC1Doc 생성/소멸
+// CG26W03MFCDoc 생성/소멸
 
 CG26W03MFC1Doc::CG26W03MFC1Doc() noexcept
 {
@@ -45,6 +45,7 @@ BOOL CG26W03MFC1Doc::OnNewDocument()
 
 	// TODO: 여기에 재초기화 코드를 추가합니다.
 	// SDI 문서는 이 문서를 다시 사용합니다.
+	Point = CPoint(-100, -100);
 
 	return TRUE;
 }
@@ -52,16 +53,18 @@ BOOL CG26W03MFC1Doc::OnNewDocument()
 
 
 
-// CG26W03MFC1Doc serialization
+// CG26W03MFCDoc serialization
 
 void CG26W03MFC1Doc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
+		ar << Point;
 		// TODO: 여기에 저장 코드를 추가합니다.
 	}
 	else
 	{
+		ar >> Point;
 		// TODO: 여기에 로딩 코드를 추가합니다.
 	}
 }
@@ -69,7 +72,7 @@ void CG26W03MFC1Doc::Serialize(CArchive& ar)
 #ifdef SHARED_HANDLERS
 
 // 축소판 그림을 지원합니다.
-void CG26W03MFC1Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
+void CG26W03MFCDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 {
 	// 문서의 데이터를 그리려면 이 코드를 수정하십시오.
 	dc.FillSolidRect(lprcBounds, RGB(255, 255, 255));
@@ -77,7 +80,7 @@ void CG26W03MFC1Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 	CString strText = _T("TODO: implement thumbnail drawing here");
 	LOGFONT lf;
 
-	CFont* pDefaultGUIFont = CFont::FromHandle((HFONT) GetStockObject(DEFAULT_GUI_FONT));
+	CFont* pDefaultGUIFont = CFont::FromHandle((HFONT)GetStockObject(DEFAULT_GUI_FONT));
 	pDefaultGUIFont->GetLogFont(&lf);
 	lf.lfHeight = 36;
 
@@ -90,7 +93,7 @@ void CG26W03MFC1Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 }
 
 // 검색 처리기를 지원합니다.
-void CG26W03MFC1Doc::InitializeSearchContent()
+void CG26W03MFCDoc::InitializeSearchContent()
 {
 	CString strSearchContent;
 	// 문서의 데이터에서 검색 콘텐츠를 설정합니다.
@@ -100,7 +103,7 @@ void CG26W03MFC1Doc::InitializeSearchContent()
 	SetSearchContent(strSearchContent);
 }
 
-void CG26W03MFC1Doc::SetSearchContent(const CString& value)
+void CG26W03MFCDoc::SetSearchContent(const CString& value)
 {
 	if (value.IsEmpty())
 	{
@@ -108,7 +111,7 @@ void CG26W03MFC1Doc::SetSearchContent(const CString& value)
 	}
 	else
 	{
-		CMFCFilterChunkValueImpl *pChunk = nullptr;
+		CMFCFilterChunkValueImpl* pChunk = nullptr;
 		ATLTRY(pChunk = new CMFCFilterChunkValueImpl);
 		if (pChunk != nullptr)
 		{
@@ -120,7 +123,7 @@ void CG26W03MFC1Doc::SetSearchContent(const CString& value)
 
 #endif // SHARED_HANDLERS
 
-// CG26W03MFC1Doc 진단
+// CG26W03MFCDoc 진단
 
 #ifdef _DEBUG
 void CG26W03MFC1Doc::AssertValid() const
@@ -135,4 +138,4 @@ void CG26W03MFC1Doc::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
-// CG26W03MFC1Doc 명령
+// CG26W03MFCDoc 명령

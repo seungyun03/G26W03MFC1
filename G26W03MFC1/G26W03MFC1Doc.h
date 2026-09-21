@@ -1,5 +1,5 @@
 ﻿
-// G26W03MFC1Doc.h: CG26W03MFC1Doc 클래스의 인터페이스
+// G26W03MFCDoc.h: CG26W03MFCDoc 클래스의 인터페이스
 //
 
 
@@ -8,17 +8,25 @@
 
 class CG26W03MFC1Doc : public CDocument
 {
-protected: // serialization에서만 만들어집니다.
+protected:
 	CG26W03MFC1Doc() noexcept;
 	DECLARE_DYNCREATE(CG26W03MFC1Doc)
+protected:
+	CPoint Point = CPoint(-100, -100);
+public:
+	CPoint GetPoint() { return Point; }
+	void SetPoint(CPoint p) {
+		Point = p; 
+		SetModifiedFlag();
+	}
 
-// 특성입니다.
+	// 특성입니다.
 public:
 
-// 작업입니다.
+	// 작업입니다.
 public:
 
-// 재정의입니다.
+	// 재정의입니다.
 public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
@@ -27,7 +35,7 @@ public:
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
 #endif // SHARED_HANDLERS
 
-// 구현입니다.
+	// 구현입니다.
 public:
 	virtual ~CG26W03MFC1Doc();
 #ifdef _DEBUG
@@ -37,7 +45,7 @@ public:
 
 protected:
 
-// 생성된 메시지 맵 함수
+	// 생성된 메시지 맵 함수
 protected:
 	DECLARE_MESSAGE_MAP()
 
